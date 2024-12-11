@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    .container {
+        scroll-behavior: smooth;
+        scroll-snap-type: both mandatory;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+    .container > div {
+        scroll-snap-align: center;
+        height: 100vh;
+    }
+    .bg-blue { background-color: blue; }
+   .bg-green { background-color: green; }
+   .bg-cyan { background-color: cyan; }
+   .bg-black { background-color: black; }
+   div{
+    height: 100vh;
+   }
+</style>
+<body>
+    <div class="container">
+        <div class="bg-blue">574674</div>
+        <div class="bg-green"></div>
+        <div class="bg-cyan"></div>
+        <div class="bg-black"></div>
+    </div>
+</body>
+</html>

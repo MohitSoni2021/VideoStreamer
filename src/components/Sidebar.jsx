@@ -30,7 +30,7 @@ const SidebarComponents = () => {
       <SidebarOptionListComponent
       icon={<SiYoutubeshorts />}
       title={"Shorts"}
-      path={"/"}
+      path={"/videos/option/shorts"}
       />
 
       <SidebarOptionListComponent

@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom'
 import { Bars } from 'react-loader-spinner'
 import axios from 'axios'
 
+import './common.css'
+
 
 const API_KEY = 'AIzaSyBho4LbGPoJGbq90dOJhDmwUjqfJ2_vfNg'
 
@@ -65,18 +67,16 @@ const MainAreaOuter = () => {
         }else if(opt == undefined) {
             const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?&key=${API_KEY}&part=snippet,statistics&chart=mostPopular&regionCode=IN&maxResults=10`)
             setFetchedData(response.data.items)
+        }else if(opt == "shorts"){
+            let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=shorts+fashion&type=shorts&videoDuration=short&key=AIzaSyBho4LbGPoJGbq90dOJhDmwUjqfJ2_vfNg&maxResults=20`
+            const response = await axios.get(url)
+            setFetchedData(response.data.items)
         }
 
         setIsLoading((prev) => !prev)
     }
 
     useEffect(()=>{
-        // console.log(opt)
-        // if(VideoCategoryIds[0].includes(opt)){
-        //     console.log(VideoCategoryIds[1].data[opt])
-        // }else if(opt == "trending"){
-        //     console.log("trending posts")
-        // }
         getDataFromApi()
     }, [document.location.pathname])
 
@@ -112,26 +112,50 @@ const MainAreaOuter = () => {
 
         
             {
-                (isLoading)?<div className='w-full flex justify-center mt-7'><Bars /></div>:
+                (opt != "shorts")?
+                (isLoading)?
+                <div className='w-full flex justify-center mt-7'><Bars /></div>
+                :
                 <div className='p-5 max-sm:p-2' ref={VideoContentAreaRef} >
-            <div className='grid grid-cols-3 gap-5 max-md:grid-cols-2 max-md:gap-2 max-sm:grid-cols-1 max-sm:gap-2'>
+                    <div className='grid grid-cols-3 gap-5 max-md:grid-cols-2 max-md:gap-2 max-sm:grid-cols-1 max-sm:gap-2'>
 
-            {
-                fetchedData.map((ele, id)=>{
-                    return (
-                        <VideoDetailsComponent 
-                        ImageLink={ ele.snippet.thumbnails.high.url}
-                        VideoTitle={ele.snippet.title}
-                        ChannelName={ele.snippet.channelTitle}
-                        VideoId={ele.id}
-                        key={id}
-                        />
-                    )
-                })
-            }
+                    {
+                        fetchedData.map((ele, id)=>{
+                            return (
+                                <VideoDetailsComponent 
+                                ImageLink={ ele.snippet.thumbnails.high.url}
+                                VideoTitle={ele.snippet.title}
+                                ChannelName={ele.snippet.channelTitle}
+                                VideoId={ele.id}
+                                key={id}
+                                />
+                            )
+                        })
+                    }
 
-            </div>
-            </div>
+                    </div>
+                </div>
+                :
+                <div className=" scroll-container scrollbar-width-none">
+                    {
+                        fetchedData.map((ele, id) => {
+                            return (
+                                <div className="h-screen  flex items-center justify-center  max-sm:items-start snap-center">
+                                    <div className="h-fit w-fit bg-slate-500">
+                                    <iframe 
+                                        className='w-full'
+                                        style={{aspectRatio: '9/16'}} 
+                                        src={`https://www.youtube.com/embed/${ele.id}`} 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             }
         
 

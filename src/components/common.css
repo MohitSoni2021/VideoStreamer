@@ -1,0 +1,15 @@
+.scroll-container {
+    scroll-behavior: smooth;
+        scroll-snap-type: both mandatory;
+        height: 100vh;
+        overflow-y: scroll;
+}
+
+.scrollbar-width-none {
+    scrollbar-width: none;
+}
+
+.scroll-container > div {
+    scroll-snap-align: center;
+        height: 100vh;
+}
