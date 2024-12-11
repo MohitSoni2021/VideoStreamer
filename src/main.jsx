@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import VideoDetailsPageComponent from './components/VideoDetailsPage.jsx'
 
 
 const router = createBrowserRouter([
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: '/videos/option/:opt',
     element: <App />,
+  },
+  {
+    path: '/videos/details/:vid',
+    element: <VideoDetailsPageComponent />
   }
 ])
 
